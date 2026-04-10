@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Muir Trail — Ultimate Guide | Budapest to Half Dome & Whitney</title>
+<style>
+  :root {
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f4f0;
+    --color-background-tertiary: #eeede8;
+    --color-background-info: #e6f1fb;
+    --color-background-success: #eaf3de;
+    --color-background-warning: #faeeda;
+    --color-background-danger: #fcebeb;
+    --color-text-primary: #1a1a18;
+    --color-text-secondary: #5f5e5a;
+    --color-text-info: #185fa5;
+    --color-text-success: #3b6d11;
+    --color-text-warning: #854f0b;
+    --color-text-danger: #a32d2d;
+    --color-border-tertiary: rgba(0,0,0,0.12);
+    --color-border-secondary: rgba(0,0,0,0.22);
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background-primary: #1c1c1a;
+      --color-background-secondary: #252523;
+      --color-background-tertiary: #2e2e2b;
+      --color-background-info: #0c3358;
+      --color-background-success: #1a3308;
+      --color-background-warning: #3d2405;
+      --color-background-danger: #3d1010;
+      --color-text-primary: #e8e6df;
+      --color-text-secondary: #9c9a92;
+      --color-text-info: #85b7eb;
+      --color-text-success: #97c459;
+      --color-text-warning: #ef9f27;
+      --color-text-danger: #f09595;
+      --color-border-tertiary: rgba(255,255,255,0.1);
+      --color-border-secondary: rgba(255,255,255,0.2);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--color-background-tertiary); color: var(--color-text-primary); min-height: 100vh; }
+  .app { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+  /* Hero */
+  .hero { background: var(--color-background-primary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-bottom: 1.25rem; border: 0.5px solid var(--color-border-tertiary); }
+  .hero-title { font-size: 20px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+  .hero-sub { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .hero-badge { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 10px; }
+  .hb-green { background: var(--color-background-success); color: var(--color-text-success); }
+  .hb-blue { background: var(--color-background-info); color: var(--color-text-info); }
+  .hb-amber { background: var(--color-background-warning); color: var(--color-text-warning); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; margin: 14px 0 12px; flex-wrap: wrap; }
+  .tab { font-size: 12px; padding: 6px 12px; border-radius: 20px; cursor: pointer; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); transition: all .15s; font-family: var(--font-sans); white-space: nowrap; }
+  .tab.active { background: var(--color-text-primary); color: var(--color-background-primary); border-color: var(--color-text-primary); font-weight: 500; }
+  .tab:hover:not(.active) { background: var(--color-background-secondary); }
+  .panel { display: none; } .panel.active { display: block; }
+
+  /* Stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .stat { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 10px 12px; border: 0.5px solid var(--color-border-tertiary); }
+  .sl { font-size: 10px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+  .sv { font-size: 18px; font-weight: 600; color: var(--color-text-primary); }
+
+  /* Cards */
+  .card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); margin-bottom: 10px; overflow: hidden; background: var(--color-background-primary); }
+  .card-head { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; background: var(--color-background-secondary); cursor: pointer; user-select: none; gap: 10px; }
+  .card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+  .card-meta { font-size: 11px; color: var(--color-text-secondary); white-space: nowrap; }
+  .card-body { display: none; padding: 13px 14px; border-top: 0.5px solid var(--color-border-tertiary); }
+  .card-body.open { display: block; }
+  .chev { font-size: 11px; color: var(--color-text-secondary); transition: transform .2s; flex-shrink: 0; }
+  .chev.open { transform: rotate(90deg); }
+  .row { display: grid; grid-template-columns: 90px 1fr; gap: 3px 10px; font-size: 12px; margin-bottom: 6px; line-height: 1.55; }
+  .lbl { color: var(--color-text-secondary); padding-top: 1px; }
+  .val { color: var(--color-text-primary); }
+
+  /* Tags */
+  .tag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 8px; margin: 2px 2px 0 0; }
+  .tw  { background: var(--color-background-info);    color: var(--color-text-info); }
+  .ts  { background: var(--color-background-success); color: var(--color-text-success); }
+  .tw2 { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .td  { background: var(--color-background-danger);  color: var(--color-text-danger); }
+  .tn  { background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+
+  /* Alerts */
+  .alert { border-radius: var(--border-radius-md); padding: 9px 13px; margin-bottom: 12px; font-size: 12px; line-height: 1.55; }
+  .alert-warn    { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .alert-info    { background: var(--color-background-info);    color: var(--color-text-info); }
+  .alert-success { background: var(--color-background-success); color: var(--color-text-success); }
+  .alert-danger  { background: var(--color-background-danger);  color: var(--color-text-danger); }
+
+  /* Day rows */
+  .day-row { display: flex; gap: 0; margin-bottom: 6px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); overflow: hidden; background: var(--color-background-primary); }
+  .day-num { min-width: 46px; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); padding: 8px 4px; flex-shrink: 0; border-right: 0.5px solid var(--color-border-tertiary); }
+  .day-content { padding: 8px 12px; flex: 1; }
+  .day-title { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+  .day-sub { color: var(--color-text-secondary); font-size: 11px; line-height: 1.5; }
+  .day-badges { margin-top: 4px; }
+
+  /* Section heads */
+  .section-head { font-size: 13px; font-weight: 600; color: var(--color-text-primary); margin: 14px 0 7px; }
+  .sep { margin: 14px 0 9px; font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+  .sep::after { content: ''; flex: 1; height: 0.5px; background: var(--color-border-secondary); }
+
+  /* Water rows */
+  .wrow { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; }
+  .wrow:last-child { border-bottom: none; }
+  .wmile { min-width: 62px; color: var(--color-text-secondary); font-size: 11px; flex-shrink: 0; }
+  .wname { flex: 1; color: var(--color-text-primary); }
+
+  /* Permit cards */
+  .perm-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 11px 14px; margin-bottom: 9px; border: 0.5px solid var(--color-border-tertiary); }
+  .perm-title { font-size: 12px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+  .perm-desc { font-size: 11px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  /* Budget */
+  .budget-section { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 8px; border: 0.5px solid var(--color-border-tertiary); }
+  .budget-row { display: flex; align-items: baseline; justify-content: space-between; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; gap: 10px; }
+  .budget-row:last-child { border-bottom: none; }
+  .bcat { color: var(--color-text-secondary); flex: 1; }
+  .bval { font-weight: 500; color: var(--color-text-primary); white-space: nowrap; }
+  .btotal { font-size: 13px; font-weight: 600; padding: 10px 0 4px; display: flex; justify-content: space-between; border-top: 1px solid var(--color-border-secondary); margin-top: 4px; color: var(--color-text-primary); }
+
+  /* Gear */
+  .gear-head { font-size: 11px; font-weight: 600; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .05em; margin: 14px 0 6px; padding-bottom: 5px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .gear-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; gap: 8px; }
+  .gear-row:last-child { border-bottom: none; }
+  .gear-item { color: var(--color-text-primary); flex: 1; line-height: 1.4; }
+  .gear-weight { font-size: 11px; color: var(--color-text-secondary); white-space: nowrap; min-width: 52px; text-align: right; }
+  .gear-cost  { font-size: 11px; font-weight: 500; color: var(--color-text-primary); white-space: nowrap; min-width: 62px; text-align: right; }
+
+  /* Maps */
+  .maps-wrap { border-radius: var(--border-radius-lg); overflow: hidden; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
+  .maps-label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); padding: 10px 14px 8px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 8px; }
+  .maps-label span { font-size: 14px; }
+  .maps-iframe-wrap { position: relative; width: 100%; padding-bottom: 62%; background: var(--color-background-tertiary); }
+  .maps-iframe-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .maps-fallback { padding: 14px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; border-top: 0.5px solid var(--color-border-tertiary); }
+  .maps-fallback a { color: var(--color-text-info); text-decoration: none; }
+  .maps-fallback a:hover { text-decoration: underline; }
+  .maps-note { font-size: 11px; color: var(--color-text-secondary); margin-top: 10px; padding: 8px 12px; background: var(--color-background-warning); border-radius: var(--border-radius-md); color: var(--color-text-warning); }
+
+  /* Print */
+  .print-btn { display: block; margin: 24px auto 0; padding: 10px 28px; font-size: 13px; font-family: var(--font-sans); cursor: pointer; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .print-btn:hover { background: var(--color-background-tertiary); }
+
+  @media (max-width: 520px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .tab { font-size: 11px; padding: 5px 9px; }
+  }
+  @media print {
+    .tabs, .print-btn { display: none; }
+    .panel { display: block !important; }
+    .card-body { display: block !important; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-title">John Muir Trail — Ultimate Guide</div>
+    <div class="hero-sub">Budapest, Hungary → San Francisco → Yosemite Valley → Whitney Portal<br>Complete international trip plan: flights, permits, gear, resupply, day-by-day itinerary &amp; maps</div>
+    <div class="hero-badges">
+      <span class="hero-badge hb-green">344 km / 213.7 mi · Southbound</span>
+      <span class="hero-badge hb-blue">Half Dome + Mt. Whitney</span>
+      <span class="hero-badge hb-amber">Best window: Late July – mid September</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="show('overview',this)">Overview</div>
+    <div class="tab" onclick="show('itinerary',this)">Day-by-Day</div>
+    <div class="tab" onclick="show('resupply',this)">Resupply</div>
+    <div class="tab" onclick="show('water',this)">Water</div>
+    <div class="tab" onclick="show('permits',this)">Permits</div>
+    <div class="tab" onclick="show('gear',this)">Gear</div>
+    <div class="tab" onclick="show('budget',this)">Budget</div>
+    <div class="tab" onclick="show('maps',this)">Maps</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       OVERVIEW
+  ═══════════════════════════════════════════ -->
+  <div class="panel active" id="overview">
+    <div class="stats-grid">
+      <div class="stat"><div class="sl">Trail miles</div><div class="sv">213.7</div></div>
+      <div class="stat"><div class="sl">Total + Whitney</div><div class="sv">~224</div></div>
+      <div class="stat"><div class="sl">Hiking days</div><div class="sv">18–24</div></div>
+      <div class="stat"><div class="sv">~30 days</div><div class="sl">Full trip (BUD)</div></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat"><div class="sl">Elev. gain</div><div class="sv">47,000'</div></div>
+      <div class="stat"><div class="sl">High point</div><div class="sv">4,421 m (14,505 ft)</div></div>
+      <div class="stat"><div class="sl">Major passes</div><div class="sv">7 + Whitney</div></div>
+      <div class="stat"><div class="sl">Resupply stops</div><div class="sv">5</div></div>
+    </div>
+
+    <div class="alert alert-success">Direction: 90–96% of JMT hikers go <strong>southbound</strong> — Yosemite Valley → Whitney Portal. This builds fitness before the more remote southern Sierra, and puts the easiest resupply stops on the northern half.</div>
+
+    <div class="section-head">Trailheads</div>
+
+    <div class="card">
+      <div class="card-head" onclick="tog(this)">
+        <div class="card-title">Start: Happy Isles Trailhead, Yosemite Valley (mi. 0 · 1,230 m (4,035 ft))</div>
+        <div class="card-meta">Recommended start</div><div class="chev">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><div class="lbl">Access</div><div class="val">Yosemite Valley shuttle to Stop 16 (Happy Isles). No car access — must use shuttle bus from Curry Village area.</div></div>
+        <div class="row"><div class="lbl">Permit</div><div class="val">Yosemite Wilderness Permit — apply at recreation.gov/permits/445859, 168 days (24 weeks) in advance. Must specify "Donohue Pass" eligibility to exit Yosemite southbound.</div></div>
+        <div class="row"><div class="lbl">Day 1 rule</div><div class="val">Must bypass Little Yosemite Valley — camp at Half Dome junction or minimum 2.9 km / 2.9 km / 1.8 mi past LYV.</div></div>
+        <div class="row"><div class="lbl">Highlights</div><div class="val">Vernal Falls · Nevada Falls · Half Dome (Day 2) · Little Yosemite Valley · iconic Yosemite Valley scenery</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" onclick="tog(this)">
+        <div class="card-title">Alternate Start: Lyell Canyon, Tuolumne Meadows (mi. ~37 km · 2,621 m (8,600 ft))</div>
+        <div class="card-meta">Easier acclimatization</div><div class="chev">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><div class="lbl">Notes</div><div class="val">Slightly less competitive permit. Starts at 2,621 m (8,600 ft) — far better for acclimatization from sea-level Budapest. First day is flat Lyell Canyon — beautiful and gentle. Misses Yosemite Valley / Half Dome at the start (can add as a pre-trip day hike).</div></div>
+        <div class="row"><div class="lbl">Permit</div><div class="val">Same lottery at recreation.gov/permits/445859. Must still have "Donohue Pass" eligibility printed on permit.</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head" onclick="tog(this)">
+        <div class="card-title">End: Whitney Portal, Lone Pine, CA (mi. ~360 km · 2,548 m (8,360 ft))</div>
+        <div class="card-meta">JMT terminus</div><div class="chev">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><div class="lbl">Final miles</div><div class="val">Summit Mt. Whitney (4,421 m (14,505 ft)) — JMT/PCT southern terminus — then 17 km / 10.6 mi descent on Whitney Trail to Whitney Portal.</div></div>
+        <div class="row"><div class="lbl">At Portal</div><div class="val">Whitney Portal Store: legendary post-trail burgers &amp; ice cream. Taxi or hitch 21 km / 21 km to Lone Pine.</div></div>
+        <div class="row"><div class="lbl">Return SF</div><div class="val">Lone Pine → Bishop → drive Hwy 395 north (~7h to SF) · OR fly Mammoth Airport → SFO · OR Eastern Sierra Transit bus to Reno + flights</div></div>
+      </div>
+    </div>
+
+    <div class="section-head">All major passes (southbound order)</div>
+    <div class="card">
+      <div class="card-head" onclick="tog(this)">
+        <div class="card-title">7 named passes + Mt. Whitney summit</div>
+        <div class="card-meta">All above 10,000'</div><div class="chev">▶</div>
+      </div>
+      <div class="card-body">
+        <div class="row"><div class="lbl">Donohue</div><div class="val">3,375 m (11,073 ft) — exits Yosemite NP southbound, enters Ansel Adams Wilderness</div></div>
+        <div class="row"><div class="lbl">Island</div><div class="val">3,117 m (10,227 ft) — quick pass with Thousand Island Lake views</div></div>
+        <div class="row"><div class="lbl">Silver</div><div class="val">3,276 m (10,748 ft) — moderate, good views south toward Mono Divide</div></div>
+        <div class="row"><div class="lbl">Selden</div><div class="val">3,325 m (10,910 ft) — gentle, broad alpine meadows</div></div>
+        <div class="row"><div class="lbl">Muir</div><div class="val">3,649 m (11,973 ft) — most complex; Muir Hut at summit; long snowfields in early season</div></div>
+        <div class="row"><div class="lbl">Mather</div><div class="val">3,687 m (12,096 ft) — near-vertical south-side ascent (southbound); dramatic Kings Canyon views</div></div>
+        <div class="row"><div class="lbl">Pinchot</div><div class="val">3,700 m (12,139 ft) — broad, relatively straightforward</div></div>
+        <div class="row"><div class="lbl">Glen</div><div class="val">3,641 m (11,947 ft) — beautiful descent to Rae Lakes</div></div>
+        <div class="row"><div class="lbl">Forester</div><div class="val">4,009 m (13,153 ft) — highest point on both JMT and PCT</div></div>
+        <div class="row"><div class="lbl">Whitney</div><div class="val">4,421 m (14,505 ft) — JMT southern terminus, highest peak in the contiguous USA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DAY-BY-DAY
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="itinerary">
+    <div class="alert alert-info">Southbound · Happy Isles → Whitney Portal · ~224 mi · Pace 10–13 mi/day · Includes zero days · All times from Budapest, Hungary.</div>
+
+    <div class="sep">Pre-trip: Budapest → San Francisco → Yosemite</div>
+
+    <div class="day-row"><div class="day-num">D-5</div><div class="day-content">
+      <div class="day-title">Budapest → San Francisco (BUD → SFO · ~15h)</div>
+      <div class="day-sub">No direct BUD→SFO flights. Best connections: Lufthansa via Frankfurt, SWISS via Zurich, KLM via Amsterdam, BA via London. Arrive SF, airport hotel, rest. Book 4–6 months ahead: $600–900 round trip.</div>
+      <div class="day-badges"><span class="tag tn">~15h total travel</span><span class="tag tn">1 connection</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D-4</div><div class="day-content">
+      <div class="day-title">San Francisco — Gear check + resupply shipping</div>
+      <div class="day-sub">REI SOMA for any last gear. Ship resupply boxes via UPS to: Tuolumne Meadows PO, Mammoth Lakes PO, VVR, Bishop PO. Buy stove fuel here — cannot fly with it. Arrange YARTS bus or rental car to Yosemite Valley.</div>
+      <div class="day-badges"><span class="tag ts">Gear + shipping day</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D-3</div><div class="day-content">
+      <div class="day-title">SF → Yosemite Valley (~4h) + permit pickup</div>
+      <div class="day-sub">YARTS bus ($20) or rental car to Yosemite Valley. Pick up wilderness permit at Yosemite Valley Wilderness Center (open 8am–5pm). Camp at Yosemite Valley Backpackers Campground ($8/night — no reservation needed with wilderness permit).</div>
+      <div class="day-badges"><span class="tag ts">Permit pickup</span><span class="tag tn">Arrive Yosemite Valley</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D-2</div><div class="day-content">
+      <div class="day-title">Yosemite Valley — acclimatize to 1,230 m (4,035 ft)</div>
+      <div class="day-sub">Day hike (no pack) to Vernal Falls or Mirror Lake — get legs moving, acclimatize. Repack food. Confirm all resupply boxes shipped. Check FarOut trail conditions. Early sleep — trail starts tomorrow.</div>
+      <div class="day-badges"><span class="tag ts">Acclimatization zero</span><span class="tag tw2">Budapest is ~400' — don't skip this</span></div>
+    </div></div>
+
+    <div class="sep">Trail Days — Happy Isles to Whitney Portal (~224 mi)</div>
+
+    <div class="day-row"><div class="day-num">D1</div><div class="day-content">
+      <div class="day-title">Happy Isles → Nevada Falls → past Little Yosemite Valley (~14.5 km / 9 mi)</div>
+      <div class="day-sub">Start at Happy Isles (1,230 m (4,035 ft)). Steep climb past Vernal Falls and Nevada Falls. Must bypass Little Yosemite Valley — camp at Half Dome junction or 2.9 km / 1.8 mi past LYV. Gain ~1,067 m (3,500 ft) today — take it steady with a full pack.</div>
+      <div class="day-badges"><span class="tag tn">0–14 km (mi.0–9)</span><span class="tag td">Big elevation gain on Day 1</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D2</div><div class="day-content">
+      <div class="day-title">HALF DOME SUMMIT (2,693 m (8,836 ft)) → Sunrise Camp (~14.5 km / 9 mi)</div>
+      <div class="day-sub">Early 5am start — 3.2 km / 3.2 km / 2 mi side trail to Half Dome cables. Start cables before 7am to beat crowds and afternoon lightning. Summit at 2,693 m (8,836 ft) with panoramic Sierra views. Return to JMT, continue to Sunrise Camp (~2,865 m (9,400 ft)).</div>
+      <div class="day-badges"><span class="tag ts">HALF DOME 2,693 m (8,836 ft)!</span><span class="tag tw2">Half Dome permit required — separate from wilderness permit</span><span class="tag td">Start before 7am — lightning risk after midday</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D3</div><div class="day-content">
+      <div class="day-title">Cathedral Lakes → Tuolumne Meadows (RESUPPLY) → Lyell Canyon (~21 km / 13 mi)</div>
+      <div class="day-sub">Pass stunning Cathedral Lakes (2,896 m (9,500 ft)). Arrive Tuolumne Meadows (2,621 m (8,600 ft)) — pick up resupply box at Post Office. Camp store, grill. Continue 6+ km into Lyell Canyon before camping (6.4 km (4 mi) no-camp zone around TM).</div>
+      <div class="day-badges"><span class="tag ts">Resupply #1: Tuolumne Meadows</span><span class="tag tw2">No camping within 6.4 km (4 mi) of TM!</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D4</div><div class="day-content">
+      <div class="day-title">Lyell Canyon → Donohue Pass (3,375 m (11,073 ft)) → Thousand Island Lake (~21 km / 13 mi)</div>
+      <div class="day-sub">Beautiful flat Lyell Canyon walk then steep climb to Donohue Pass — leaving Yosemite NP. Spectacular views back north. Descend into Ansel Adams Wilderness. 10-min detour to Thousand Island Lake — unmissable Ansel Adams country.</div>
+      <div class="day-badges"><span class="tag tn">58–79 km (mi.36–49)</span><span class="tag ts">Leave Yosemite NP</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D5</div><div class="day-content">
+      <div class="day-title">Thousand Island Lake → Red's Meadow (RESUPPLY) (~21 km / 13 mi)</div>
+      <div class="day-sub">Past Garnet Lake, Shadow Lake, through Devils Postpile National Monument. Arrive Red's Meadow Resort — café, hot showers. Take free summer shuttle to Mammoth Lakes for full resupply.</div>
+      <div class="day-badges"><span class="tag ts">Resupply #2: Red's Meadow / Mammoth Lakes</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D6</div><div class="day-content">
+      <div class="day-title">ZERO DAY — Mammoth Lakes</div>
+      <div class="day-sub">Full resupply at Vons grocery. Laundry, hot shower, excellent restaurants. Rest legs. Gear check — replace worn shoes or socks if needed. Hitch or shuttle back to Red's Meadow trailhead.</div>
+      <div class="day-badges"><span class="tag ts">Zero — Mammoth Lakes</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D7</div><div class="day-content">
+      <div class="day-title">Red's Meadow → Purple Lake (~19 km / 12 mi)</div>
+      <div class="day-sub">Return to trail. South through the southern Ansel Adams Wilderness. Pass Rainbow Falls junction. Climb past Duck Lake junction to Purple Lake (3,018 m (9,900 ft)) — dramatic granite walls, excellent camping.</div>
+      <div class="day-badges"><span class="tag tn">95–117 km (95–117 km (mi.59–73))</span><span class="tag tw">Purple Lake: reliable water</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D8</div><div class="day-content">
+      <div class="day-title">Silver Pass (3,276 m (10,748 ft)) → Selden Pass (3,325 m (10,910 ft)) → Marie Lake (~21 km / 13 mi)</div>
+      <div class="day-sub">Two passes in one day — Silver Pass first, then Selden Pass. Broad alpine views from both. Descend to beautiful Marie Lake for camp. The VVR side trail junction comes tomorrow, further south — you are not backtracking; VVR is ahead of you on the southbound route.</div>
+      <div class="day-badges"><span class="tag tn">117–150 km (117–150 km (mi.73–93))</span><span class="tag ts">VVR side trail still ahead ~13 mi south</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D9</div><div class="day-content">
+      <div class="day-title">Marie Lake → VVR side trail → Vermillion Valley Resort (RESUPPLY)</div>
+      <div class="day-sub">Continue south ~13 mi from Marie Lake to the Edison Lake / VVR side trail junction (near Mono Creek, mi.~106). Hike 2.1 km to ferry dock on Edison Lake — ferry runs twice daily to VVR. Hot food, beer, Wi-Fi, resupply box pickup. Camp at VVR.</div>
+      <div class="day-badges"><span class="tag ts">Resupply #3: VVR</span><span class="tag tn">Ferry 2x daily</span><span class="tag tw2">VVR is south of Silver Pass — no backtracking</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D10</div><div class="day-content">
+      <div class="day-title">ZERO DAY — Vermillion Valley Resort</div>
+      <div class="day-sub">Rest, repack 6–7 days food for the long carry to Bishop. VVR is the most social stop on the JMT — great hiker culture, no cell service but good Wi-Fi. Morning ferry back to trail, continue south.</div>
+      <div class="day-badges"><span class="tag ts">Zero — VVR</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D11</div><div class="day-content">
+      <div class="day-title">Return to JMT → Evolution Valley (~21 km / 13 mi)</div>
+      <div class="day-sub">Morning ferry back to JMT. Stunning Evolution Valley — one of the most beautiful sections of the entire trail. Pass through McClure Meadow. Camp near Muir Trail Ranch junction area.</div>
+      <div class="day-badges"><span class="tag tn">171–192 km (mi.106–119)</span><span class="tag ts">Evolution Valley</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D12</div><div class="day-content">
+      <div class="day-title">MTR (optional pickup) → Muir Pass (3,649 m (11,973 ft)) (~21 km / 13 mi)</div>
+      <div class="day-sub">Pick up pre-arranged bucket at Muir Trail Ranch if using. Climb through Helen Lake and Wanda Lake basin to Muir Pass — Muir Hut at summit. Most complex pass on the JMT. Descend to LeConte Canyon.</div>
+      <div class="day-badges"><span class="tag tn">192–212 km (mi.119–132)</span><span class="tag td">Most complex pass — long snowfields early season</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D13</div><div class="day-content">
+      <div class="day-title">LeConte Canyon → Mather Pass (3,687 m (12,096 ft)) → Palisade Lakes (~21 km / 13 mi)</div>
+      <div class="day-sub">Climb Mather Pass — steep south-side ascent when southbound. Dramatic Kings Canyon views from the top. Descend to spectacular Palisade Lakes in one of the most dramatic granite cirques in the Sierra.</div>
+      <div class="day-badges"><span class="tag tn">212–233 km (mi.132–145)</span><span class="tag tw2">Mather S-face: steep, rocky ascent</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D14</div><div class="day-content">
+      <div class="day-title">Pinchot Pass (3,700 m (12,139 ft)) → Woods Creek suspension bridge (~21 km / 13 mi)</div>
+      <div class="day-sub">Cross Pinchot Pass with sweeping Kings Canyon views. Descend to Woods Creek — year-round reliable water and the famous JMT suspension bridge. Classic JMT landmark and great camp spot.</div>
+      <div class="day-badges"><span class="tag tn">233–254 km (mi.145–158)</span><span class="tag tw">Woods Creek: year-round water</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D15</div><div class="day-content">
+      <div class="day-title">Glen Pass (3,641 m (11,947 ft)) → Rae Lakes → Kearsarge junction (~18 km / 11 mi)</div>
+      <div class="day-sub">Cross Glen Pass, descend to stunning Rae Lakes (2-night max camping enforced). Reach Kearsarge Pass junction (mi.166). Hike 12 km / 7.6 mi out over Kearsarge Pass to Onion Valley TH, hitch to Bishop for final major resupply.</div>
+      <div class="day-badges"><span class="tag ts">Resupply #4: Bishop, CA</span><span class="tag tn">Rae Lakes: 2-night max</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D16</div><div class="day-content">
+      <div class="day-title">ZERO DAY — Bishop, CA</div>
+      <div class="day-sub">Best Sierra resupply town. Vons grocery, Eastside Sports gear, excellent Eastern Sierra restaurants. Full laundry, hot shower. Pack 5–6 days food for final push to Whitney (~55 mi). Hitch back to Onion Valley TH by afternoon.</div>
+      <div class="day-badges"><span class="tag ts">Zero — Bishop, CA</span><span class="tag tn">Last major town before finish</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D17</div><div class="day-content">
+      <div class="day-title">Return to JMT → Forester Pass approach via Vidette Meadow (~19 km / 12 mi)</div>
+      <div class="day-sub">Cross Kearsarge Pass back to JMT. Head south through Vidette Meadow and into Sequoia NP. Camp below Forester Pass at ~3,353 m (11,000 ft) — cold night, stars beyond description.</div>
+      <div class="day-badges"><span class="tag tn">267–303 km (mi.166–188)</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D18</div><div class="day-content">
+      <div class="day-title">Forester Pass (4,009 m (13,153 ft)) → Crabtree Meadows (~21 km / 13 mi)</div>
+      <div class="day-sub">Highest point on the JMT and PCT. Exhilarating descent. Continue south to Crabtree Meadows (3,261 m (10,700 ft)) — the classic Whitney basecamp. Whitney Ranger Station here. Rest up for tomorrow's summit day.</div>
+      <div class="day-badges"><span class="tag tn">303–323 km (mi.188–201)</span><span class="tag ts">Camp: Crabtree Meadows</span></div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D19</div><div class="day-content">
+      <div class="day-title">Guitar Lake → Mt. WHITNEY (4,421 m (14,505 ft)) → Whitney Portal — FINISH! (~37 km / 23 mi)</div>
+      <div class="day-sub">Wake at 3am. Hike to Guitar Lake, then climb to Whitney summit (4,421 m (14,505 ft)) — the JMT's southern terminus and the highest point in the contiguous USA. Sunrise above the entire Sierra Nevada. Then 17 km / 17 km / 10.6 mi descent on the Whitney Trail to Whitney Portal. YOU HAVE HIKED THE JOHN MUIR TRAIL.</div>
+      <div class="day-badges"><span class="tag ts">MT. WHITNEY 4,421 m (14,505 ft) — JMT COMPLETE!</span><span class="tag tn">End: Whitney Portal</span></div>
+    </div></div>
+
+    <div class="sep">Return: Whitney Portal → Lone Pine → San Francisco → Budapest</div>
+
+    <div class="day-row"><div class="day-num">D20</div><div class="day-content">
+      <div class="day-title">Whitney Portal → Lone Pine → Bishop or Reno</div>
+      <div class="day-sub">Whitney Portal Store (legendary burgers and ice cream — earned). Taxi or hitch 21 km / 21 km to Lone Pine. Rest, celebrate, eat. Eastern Sierra Transit bus north to Bishop or Reno. Or drive Hwy 395 back toward SF (~7h).</div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D21</div><div class="day-content">
+      <div class="day-title">Return to San Francisco</div>
+      <div class="day-sub">Drive, bus, or fly (Mammoth Airport → SFO) back to San Francisco. Hotel near SFO. Last US night — dinner in the city, celebrate.</div>
+    </div></div>
+
+    <div class="day-row"><div class="day-num">D22</div><div class="day-content">
+      <div class="day-title">San Francisco → Budapest (SFO → BUD · ~15h)</div>
+      <div class="day-sub">Depart SFO. 1-stop return flight ~15h. Arrive Budapest Ferenc Liszt Airport. Welcome home — you have completed the John Muir Trail.</div>
+      <div class="day-badges"><span class="tag tn">SFO → BUD ~15h</span></div>
+    </div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       RESUPPLY
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="resupply">
+    <div class="alert alert-info">Ship resupply boxes from San Francisco before heading to Yosemite. Write your name, "JMT Hiker," and your ETA on every package.</div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">1. Tuolumne Meadows, Yosemite NP</div><div class="card-meta">~37 km / mi.23 · First stop</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Mail to</div><div class="val">c/o General Delivery, Tuolumne Meadows PO, Yosemite NP CA 95389 (include your ETA)</div></div>
+      <div class="row"><div class="lbl">Buy there</div><div class="val">Camp store (limited but adequate), grill. Pack 3 days food to Red's Meadow (~58 km / 36 mi).</div></div>
+      <div class="row"><div class="lbl">Amenities</div><div class="val"><span class="tag tn">Post Office</span> <span class="tag tn">Grill</span> <span class="tag tn">Camp store</span> <span class="tag tn">YARTS bus</span></div></div>
+      <div class="row"><div class="lbl">Warning</div><div class="val"><span class="tag tw2">No camping within 6.4 km (4 miles) either side of Tuolumne Meadows</span></div></div>
+    </div></div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">2. Red's Meadow + Mammoth Lakes</div><div class="card-meta">95 km / mi.59 · Full town stop</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Access</div><div class="val">Red's Meadow Resort is 0.5 km off JMT. Free summer shuttle to Mammoth Lakes (seasonal, check schedule).</div></div>
+      <div class="row"><div class="lbl">Mail to</div><div class="val">Mammoth PO: c/o General Delivery, Mammoth Lakes CA 93546. Avoid Red's Meadow ($40 holding fee) — mail to Mammoth instead.</div></div>
+      <div class="row"><div class="lbl">Buy</div><div class="val">Red's: small store, café. Mammoth: Vons grocery (full resupply), REI, restaurants, lodging, laundry, urgent care.</div></div>
+      <div class="row"><div class="lbl">Carry</div><div class="val">3–4 days food to VVR (~76 km / 47 mi)</div></div>
+      <div class="row"><div class="lbl">Amenities</div><div class="val"><span class="tag tn">Full grocery</span> <span class="tag tn">REI</span> <span class="tag tn">Lodging</span> <span class="tag tn">Laundry</span> <span class="tag tn">Restaurants</span></div></div>
+    </div></div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">3. Vermillion Valley Resort (VVR)</div><div class="card-meta">~171 km / mi.106 · Recommended</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Access</div><div class="val">2.1 km / 1.3 mi side trail south of Silver Pass area to Edison Lake ferry dock. Ferry to VVR, runs twice daily (check current schedule at vermillionvalleyresort.com).</div></div>
+      <div class="row"><div class="lbl">Mail to</div><div class="val">c/o Vermillion Valley Resort, 62311 Huntington Lake Rd, Lakeshore CA 93634</div></div>
+      <div class="row"><div class="lbl">Carry</div><div class="val">6–7 days food to Bishop via Kearsarge (~97 km / 60 mi) — the longest carry on the JMT</div></div>
+      <div class="row"><div class="lbl">Amenities</div><div class="val"><span class="tag tn">Restaurant/bar</span> <span class="tag tn">Hot showers</span> <span class="tag tn">Lodging</span> <span class="tag tn">Wi-Fi</span> <span class="tag tn">Boat ferry</span></div></div>
+    </div></div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">4. Muir Trail Ranch (Optional)</div><div class="card-meta">~192 km / mi.119</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Access</div><div class="val">2.1 km / 1.3 mi side trail off JMT. Bucket resupply ONLY — pre-arrange directly with MTR (muirtrailranch.com) months in advance. No walk-in resupply.</div></div>
+      <div class="row"><div class="lbl">Notes</div><div class="val">Useful to break up the long VVR → Kearsarge carry. Adds complexity but reduces pack weight. Hot springs available for a fee.</div></div>
+      <div class="row"><div class="lbl">Amenities</div><div class="val"><span class="tag tn">Hot springs</span> <span class="tag tn">Meals (fee)</span> <span class="tag tn">Bucket resupply</span></div></div>
+    </div></div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">5. Bishop, CA — via Kearsarge Pass</div><div class="card-meta">~267 km / mi.166 · Last major stop</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Access</div><div class="val">12 km / 7.6 mi hike out Kearsarge Pass trail to Onion Valley TH → hitch or taxi ~64 km to Bishop (or 15 mi to Independence — PO only)</div></div>
+      <div class="row"><div class="lbl">Mail to</div><div class="val">c/o General Delivery, Bishop CA 93514</div></div>
+      <div class="row"><div class="lbl">Carry</div><div class="val">5–6 days food to Whitney Portal (~89 km / 55 mi). This is your final food carry to the finish.</div></div>
+      <div class="row"><div class="lbl">Amenities</div><div class="val"><span class="tag tn">Vons grocery</span> <span class="tag tn">Eastside Sports</span> <span class="tag tn">Lodging</span> <span class="tag tn">Hospital</span> <span class="tag tn">Laundry</span></div></div>
+    </div></div>
+
+    <div class="card"><div class="card-head" onclick="tog(this)"><div class="card-title">6. Whitney Portal (Trail end)</div><div class="card-meta">~360 km / mi.224 · Finish!</div><div class="chev">▶</div></div><div class="card-body">
+      <div class="row"><div class="lbl">Notes</div><div class="val">Whitney Portal Store: burgers, ice cream, cold drinks — you are done! This is not a resupply point — you arrive here having finished the trail.</div></div>
+      <div class="row"><div class="lbl">Onward</div><div class="val">Taxi or hitch 21 km / 21 km to Lone Pine. Eastern Sierra Transit bus to Bishop or Reno. Or arrange pickup.</div></div>
+    </div></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WATER
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="water">
+    <div class="alert alert-warn">Filter or treat ALL water — Giardia is present throughout the Sierra Nevada. The JMT has excellent water throughout. The only places with no water are the summits of Half Dome and Mt. Whitney — fill up before ascending both.</div>
+
+    <div class="wrow"><div class="wmile">0–37 km (mi.0–23)</div><div class="wname">Merced River, Vernal/Nevada Falls, LYV streams — year-round, abundant</div><span class="tag tw">Year-round</span></div>
+    <div class="wrow"><div class="wmile">Half Dome</div><div class="wname">NO water on summit. Fill at Little Yosemite Valley before ascending. Carry 2L minimum.</div><span class="tag td">No water</span></div>
+    <div class="wrow"><div class="wmile">37–60 km (mi.23–37)</div><div class="wname">Lyell Fork Tuolumne River — flat canyon, excellent water entire season</div><span class="tag tw">Year-round</span></div>
+    <div class="wrow"><div class="wmile">60–95 km (mi.37–59)</div><div class="wname">Ansel Adams lakes — Thousand Island, Garnet, Shadow, Ediza — abundant</div><span class="tag tw">Reliable</span></div>
+    <div class="wrow"><div class="wmile">95–117 km (95–117 km (mi.59–73))</div><div class="wname">Red's Meadow creek, Purple Lake, Duck Lake, Rainbow Falls creek</div><span class="tag tw">Reliable</span></div>
+    <div class="wrow"><div class="wmile">117–150 km (117–150 km (mi.73–93))</div><div class="wname">Silver Pass Lake, Selden Pass area, Marie Lake — solid sources</div><span class="tag tw">Reliable</span></div>
+    <div class="wrow"><div class="wmile">150–171 km (mi.93–106)</div><div class="wname">Bear Creek, Mono Creek — can run high in June/July; may need to search for crossing</div><span class="tag tw2">Seasonal high</span></div>
+    <div class="wrow"><div class="wmile">171–212 km (mi.106–132)</div><div class="wname">Evolution Lake, Evolution Creek (may flood trail in high water years), Helen Lake, Wanda Lake</div><span class="tag tw2">Flood risk</span></div>
+    <div class="wrow"><div class="wmile">212–254 km (mi.132–158)</div><div class="wname">LeConte Canyon Kings River, Palisade Lakes, Woods Creek (year-round)</div><span class="tag tw">Year-round</span></div>
+    <div class="wrow"><div class="wmile">254–267 km (mi.158–166)</div><div class="wname">Rae Lakes — multiple excellent lake sources, some of the best campsites on the trail</div><span class="tag tw">Reliable</span></div>
+    <div class="wrow"><div class="wmile">267–323 km (mi.166–201)</div><div class="wname">Tyndall Creek, Guitar Lake, Crabtree Meadows creek — reliable Sierra water</div><span class="tag tw">Reliable</span></div>
+    <div class="wrow"><div class="wmile">Whitney</div><div class="wname">NO water on Whitney summit. Last reliable source: Guitar Lake (~mi.198). Carry 2L minimum to summit and down.</div><span class="tag td">No summit water</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PERMITS
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="permits">
+    <div class="perm-card">
+      <div class="perm-title">1. Yosemite Wilderness Permit — Primary JMT permit</div>
+      <div class="perm-desc">Required to hike JMT starting from Happy Isles or Lyell Canyon. Apply at recreation.gov/permits/445859. Lottery opens 168 days (24 weeks) in advance, every Sunday for that week's start dates. $10 non-refundable lottery application fee + $10/person if awarded. 60% available by advance reservation; 40% available walk-up at 7am PDT, 7 days in advance online. Permit must specify "Donohue Pass" eligibility to exit Yosemite southbound on the JMT. Very competitive — apply immediately when the lottery opens for your target week.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">2. Half Dome Permit — Required for cables</div>
+      <div class="perm-desc">Required to ascend the subdome steps and Half Dome cables. Cables up approximately May 25 – October 15 each year. Pre-season lottery: March 1–31 at recreation.gov/permits/234652. Results announced mid-April. $10 non-refundable application fee + $10/person if awarded. Daily lottery: apply 2 days before your intended hike, between midnight and 4pm PT. ~18% success rate in pre-season lottery. Maximum 300 permits/day total (225 day hikers + 75 backpackers). Apply with a range of dates — weekdays have better odds. Start cables before 7am to avoid afternoon lightning and crowds.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">3. Mt. Whitney — JMT southern terminus</div>
+      <div class="perm-desc">The JMT wilderness permit covers hiking to the Whitney summit from the west (Crabtree Meadows) on your finish day. If camping near the Whitney summit, an additional Sequoia-Kings Canyon NP overnight permit is required. Confirm current requirements with the Inyo National Forest before your trip — regulations can change year to year.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">4. Yosemite NP Entry Fee — Non-US residents</div>
+      <div class="perm-desc">Standard $35/vehicle fee + approximately $100 additional for non-US residents in 2026. The America the Beautiful Annual Pass ($80 at recreation.gov) covers entry to all US national parks for 12 months — excellent value if you plan any other parks on this trip or return visits. Purchase before arrival.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">5. Hungarian travelers: ESTA Visa Waiver</div>
+      <div class="perm-desc">Hungary is a Visa Waiver Program country — no embassy visit or tourist visa needed. Apply online at esta.cbp.dhs.gov before departure. Cost: $21. Apply at least 72 hours before travel (apply as soon as you book flights). Valid 2 years / multiple trips. Allows stays up to 90 days in the USA per visit. Carry your passport and ESTA confirmation number when traveling.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">6. California Fire Permit</div>
+      <div class="perm-desc">Required for any open flame in California, including camp stoves — even in wilderness areas. Free, apply online at readyforwildfire.org before departure. Note that campfires are banned above certain elevations and during fire season — always check current restrictions. Camp stoves are generally permitted with the fire permit.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">Application timeline for a July–August trip</div>
+      <div class="perm-desc">March 1–31 (year of trip): Enter Half Dome pre-season lottery at recreation.gov · April (year of trip): Half Dome lottery results announced · ~24 weeks before start (spring, year of trip): Yosemite Wilderness Permit lottery opens — apply immediately when your week opens · 7 days before start: Check walk-up permit availability online · 2 days before your Half Dome day: Enter daily lottery as backup if pre-season unsuccessful · Before departure from Budapest: Book flights, purchase ESTA, arrange travel insurance, ship gear.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       GEAR
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="gear">
+    <div class="alert alert-info">Target base weight: 5.5–7.3 kg (12–16 lbs) excluding food, water, and fuel. Bear canister adds ~900 g (2 lbs). Buy stove fuel in the USA — you cannot fly with it. Major gear can be purchased in Budapest or at REI San Francisco before the trail.</div>
+
+    <div class="gear-head">The Big 4 — Shelter, Sleep System, Pack, Pad</div>
+    <div class="gear-row"><div class="gear-item">Tent / shelter — Zpacks Duplex, Big Agnes Copper Spur HV UL2, or similar ultralight 2P</div><div class="gear-weight">0.5–1.4 kg (1–3 lbs)</div><div class="gear-cost">$300–650</div></div>
+    <div class="gear-row"><div class="gear-item">Sleeping bag / quilt — -7°C / 20°F down rating (Enlightened Equipment Revelation, Western Mountaineering Megalite)</div><div class="gear-weight">510–624 g (18–22 oz)</div><div class="gear-cost">$250–450</div></div>
+    <div class="gear-row"><div class="gear-item">Backpack — 55–65L to accommodate bear canister (ULA Circuit, Osprey Exos 58, HMG Southwest)</div><div class="gear-weight">0.9–1.6 kg (2–3.5 lbs)</div><div class="gear-cost">$200–400</div></div>
+    <div class="gear-row"><div class="gear-item">Sleeping pad — Therm-a-Rest NeoAir XLite NXT or Sea to Summit Ether Light XT Insulated</div><div class="gear-weight">340–454 g (12–16 oz)</div><div class="gear-cost">$120–200</div></div>
+
+    <div class="gear-head">Sierra-Specific Required Gear</div>
+    <div class="gear-row"><div class="gear-item">Bear canister — BearVault BV500 Journey (most popular for 9+ consecutive years) — mandatory throughout JMT</div><div class="gear-weight">936 g / 11.5 L (33 oz)</div><div class="gear-cost">$80–100</div></div>
+    <div class="gear-row"><div class="gear-item">Ice axe — C.A.M.P. USA Corsa or Petzl Glacier (carry if hiking June–early July; less critical Aug+)</div><div class="gear-weight">198–340 g (7–12 oz)</div><div class="gear-cost">$90–150</div></div>
+    <div class="gear-row"><div class="gear-item">Microspikes — Kahtoola MICROspikes (most common on JMT/PCT) or Black Diamond Distance Spike</div><div class="gear-weight">227–340 g (8–12 oz)</div><div class="gear-cost">$70–100</div></div>
+    <div class="gear-row"><div class="gear-item">Trekking poles — Black Diamond Distance Carbon or Leki Micro Vario (foldable recommended for Half Dome cables)</div><div class="gear-weight">~454 g/pair (16 oz)</div><div class="gear-cost">$150–250</div></div>
+
+    <div class="gear-head">Clothing System</div>
+    <div class="gear-row"><div class="gear-item">Long-sleeve hiking shirt (UPF 30+) — sun protection is critical above 10,000'</div><div class="gear-weight">85–113 g (3–4 oz)</div><div class="gear-cost">$50–80</div></div>
+    <div class="gear-row"><div class="gear-item">Hiking shorts or convertible pants</div><div class="gear-weight">170–227 g (6–8 oz)</div><div class="gear-cost">$50–90</div></div>
+    <div class="gear-row"><div class="gear-item">Down insulation jacket — Arc'teryx Cerium, Patagonia Down Sweater, or similar (evenings get cold at altitude)</div><div class="gear-weight">284–397 g (10–14 oz)</div><div class="gear-cost">$180–350</div></div>
+    <div class="gear-row"><div class="gear-item">Hardshell rain jacket — Arc'teryx Beta AR, Outdoor Research Helium II, or similar</div><div class="gear-weight">170–284 g (6–10 oz)</div><div class="gear-cost">$150–350</div></div>
+    <div class="gear-row"><div class="gear-item">Fleece mid-layer — Sierra nights regularly drop below 5°C (41°F) even in August above 10,000'</div><div class="gear-weight">227–340 g (8–12 oz)</div><div class="gear-cost">$80–150</div></div>
+    <div class="gear-row"><div class="gear-item">Merino wool base layer top + bottom (Icebreaker, Smartwool) — for cold nights and passes</div><div class="gear-weight">198–284 g (7–10 oz)</div><div class="gear-cost">$120–200</div></div>
+    <div class="gear-row"><div class="gear-item">Hiking socks — Darn Tough (2–3 pairs; lifetime warranty; worth every cent)</div><div class="gear-weight">85 g each (3 oz)</div><div class="gear-cost">$60–90</div></div>
+    <div class="gear-row"><div class="gear-item">Trail running shoes — Hoka Speedgoat 5, Salomon Speedcross, or Altra Lone Peak</div><div class="gear-weight">~680 g (1.5 lbs)</div><div class="gear-cost">$130–180</div></div>
+    <div class="gear-row"><div class="gear-item">Camp shoes / sandals — Crocs are trail culture and your feet will love them in camp</div><div class="gear-weight">170–284 g (6–10 oz)</div><div class="gear-cost">$30–50</div></div>
+    <div class="gear-row"><div class="gear-item">Wide-brim sun hat + warm beanie (two separate hats)</div><div class="gear-weight">57–113 g (2–4 oz)</div><div class="gear-cost">$20–45</div></div>
+    <div class="gear-row"><div class="gear-item">Lightweight liner gloves — for cold pass mornings and early starts</div><div class="gear-weight">28–57 g (1–2 oz)</div><div class="gear-cost">$20–40</div></div>
+    <div class="gear-row"><div class="gear-item">Gaiters (trail running, low-cut) — useful for sandy passes and early season snow</div><div class="gear-weight">57–85 g (2–3 oz)</div><div class="gear-cost">$20–45</div></div>
+
+    <div class="gear-head">Navigation, Safety &amp; Electronics</div>
+    <div class="gear-row"><div class="gear-item">FarOut app (JMT California guide — download offline before trip) — absolutely essential</div><div class="gear-weight">Smartphone app</div><div class="gear-cost">$30–40</div></div>
+    <div class="gear-row"><div class="gear-item">Satellite communicator — Garmin inReach Mini 2 (no cell signal for the entire JMT; non-negotiable for solo)</div><div class="gear-weight">99 g (3.5 oz)</div><div class="gear-cost">$350 + plan</div></div>
+    <div class="gear-row"><div class="gear-item">Headlamp — Black Diamond Spot 400 or Petzl Actik Core (rechargeable; bring USB cable)</div><div class="gear-weight">57–85 g (2–3 oz)</div><div class="gear-cost">$35–55</div></div>
+    <div class="gear-row"><div class="gear-item">Power bank — Anker 10,000mAh (charges phone 3–4× between towns; also charges headlamp and inReach)</div><div class="gear-weight">170–198 g (6–7 oz)</div><div class="gear-cost">$30–55</div></div>
+    <div class="gear-row"><div class="gear-item">Waterproof phone case / dry bags for electronics</div><div class="gear-weight">28–57 g (1–2 oz)</div><div class="gear-cost">$10–25</div></div>
+
+    <div class="gear-head">Cooking, Water &amp; Hygiene</div>
+    <div class="gear-row"><div class="gear-item">Water filter — Sawyer Squeeze + 2L dirty water bag (most popular on JMT; reliable and lightweight)</div><div class="gear-weight">85 g (3 oz)</div><div class="gear-cost">$35–45</div></div>
+    <div class="gear-row"><div class="gear-item">Water bottles — 2× 1L Smartwater + 2L soft flask for long carries (dry stretch: mi.702–717 if doing PCT link)</div><div class="gear-weight">57 g (2 oz)</div><div class="gear-cost">$15–25</div></div>
+    <div class="gear-row"><div class="gear-item">Stove — Jetboil Flash or BRS-3000T ultralight + small titanium pot. Buy isobutane fuel in the USA.</div><div class="gear-weight">85–369 g (3–13 oz)</div><div class="gear-cost">$20–110</div></div>
+    <div class="gear-row"><div class="gear-item">Insect repellent — DEET 30%+ or Picaridin (Sierra mosquitoes are brutal June–late July)</div><div class="gear-weight">57–85 g (2–3 oz)</div><div class="gear-cost">$10–15</div></div>
+    <div class="gear-row"><div class="gear-item">Sunscreen SPF 50+ — UV radiation is intense above 10,000'. Reapply every 2 hours.</div><div class="gear-weight">85 g (3 oz)</div><div class="gear-cost">$10–15</div></div>
+    <div class="gear-row"><div class="gear-item">Sunglasses — polarized, UV400 (critical for snow travel and high-altitude glare)</div><div class="gear-weight">28–57 g (1–2 oz)</div><div class="gear-cost">$25–150</div></div>
+    <div class="gear-row"><div class="gear-item">First aid kit — Leukotape (blister prevention), ibuprofen, electrolyte tablets, ACE bandage, moleskin, antiseptic</div><div class="gear-weight">113–170 g (4–6 oz)</div><div class="gear-cost">$30–60</div></div>
+    <div class="gear-row"><div class="gear-item">Altitude sickness medication — Diamox (acetazolamide 125–250mg) — prescription required; get from your Budapest doctor before departure</div><div class="gear-weight">Prescription required</div><div class="gear-cost">$20–50</div></div>
+    <div class="gear-row"><div class="gear-item">Trowel (LNT cathole digging) + WAG bags (required in some Yosemite zones) + biodegradable soap</div><div class="gear-weight">28–57 g (1–2 oz)</div><div class="gear-cost">$8–20</div></div>
+    <div class="gear-row"><div class="gear-item">Bear canister liner bags / Ziploc bags — keep food organised inside the canister</div><div class="gear-weight">~28 g (1 oz)</div><div class="gear-cost">$5–10</div></div>
+    <div class="gear-row"><div class="gear-item">Tarp / pack rain cover or trash compactor bag (pack liner) — Sierra storms can arrive fast</div><div class="gear-weight">57–113 g (2–4 oz)</div><div class="gear-cost">$5–30</div></div>
+
+    <div class="gear-head">Where to buy in Europe (Budapest)</div>
+    <div class="perm-card" style="margin-top:6px">
+      <div class="perm-title">Budapest gear stores &amp; online options</div>
+      <div class="perm-desc">Intersport Hungary, Mammut brand dealers, and Decathlon (for budget items) carry most essentials. For ultralight/specialist gear: order from Patagonia, Arc'teryx, or Enlightened Equipment direct — all ship to Hungary. Zpacks ships internationally. Merino base layers from Icebreaker are widely available in Europe.<br><br>Do NOT bring: Stove fuel (isobutane canisters) on the plane — this is illegal. Buy at REI San Francisco SOMA location or at outdoor stores near Yosemite. Also do not buy a bear canister before checking with Kennedy Meadows / Triple Crown Outfitters — they have them on site.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BUDGET
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="budget">
+
+    <div class="section-head">International flights &amp; airport costs</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">BUD → SFO → BUD round trip economy (book 4–6 months ahead)</div><div class="bval">$600–900</div></div>
+      <div class="budget-row"><div class="bcat">Budapest airport taxi or train to BUD Ferenc Liszt</div><div class="bval">$15–30</div></div>
+      <div class="budget-row"><div class="bcat">US ESTA visa waiver (Hungarian passport)</div><div class="bval">$21</div></div>
+    </div>
+
+    <div class="section-head">Accommodation (off-trail ~11 nights total)</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">San Francisco hotel (2 nights — arrival + departure)</div><div class="bval">$240–400</div></div>
+      <div class="budget-row"><div class="bcat">Yosemite Valley Backpackers Campground (2 nights — pre-trip + rest day) — $8/night</div><div class="bval">$16–32</div></div>
+      <div class="budget-row"><div class="bcat">Yosemite Valley Lodge / Curry Village (1 night rest day option)</div><div class="bval">$120–250</div></div>
+      <div class="budget-row"><div class="bcat">Mammoth Lakes hotel/Airbnb (2 nights, zero day)</div><div class="bval">$200–360</div></div>
+      <div class="budget-row"><div class="bcat">Vermillion Valley Resort (2 nights: camping or cabin)</div><div class="bval">$100–240</div></div>
+      <div class="budget-row"><div class="bcat">Bishop, CA — budget motel (2 nights, zero day)</div><div class="bval">$160–240</div></div>
+      <div class="budget-row"><div class="bcat">Lone Pine after finish (1 night)</div><div class="bval">$80–130</div></div>
+    </div>
+
+    <div class="section-head">Food (trail + towns)</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">Trail food ~$8–12/day × 20 hiking days</div><div class="bval">$160–240</div></div>
+      <div class="budget-row"><div class="bcat">Town/restaurant meals (~5 zero days × $40–80)</div><div class="bval">$200–400</div></div>
+    </div>
+
+    <div class="section-head">Permits &amp; park fees</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">Yosemite Wilderness Permit ($10 lottery application + $10/person)</div><div class="bval">$20</div></div>
+      <div class="budget-row"><div class="bcat">Half Dome permit ($10 lottery application + $10/person if awarded)</div><div class="bval">$20</div></div>
+      <div class="budget-row"><div class="bcat">Yosemite NP entry — non-US resident (standard $35 + ~$100 extra)</div><div class="bval">~$135</div></div>
+      <div class="budget-row"><div class="bcat">California fire permit (stove use)</div><div class="bval">Free</div></div>
+    </div>
+
+    <div class="section-head">US ground transport</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">SF → Yosemite Valley (YARTS bus $20 or rental car + parking)</div><div class="bval">$20–120</div></div>
+      <div class="budget-row"><div class="bcat">On-trail shuttles: VVR ferry, Onion Valley → Bishop hitch, Red's → Mammoth shuttle</div><div class="bval">$20–60</div></div>
+      <div class="budget-row"><div class="bcat">Whitney Portal → Lone Pine taxi/hitch (13 mi)</div><div class="bval">$40–60</div></div>
+      <div class="budget-row"><div class="bcat">Lone Pine → SF (Hwy 395 drive rental, bus, or Eastern Sierra Transit + connection)</div><div class="bval">$40–150</div></div>
+    </div>
+
+    <div class="section-head">Gear (one-time cost — keeps for future trips)</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">Big 4: tent, sleeping bag/quilt, backpack, sleeping pad</div><div class="bval">$900–1,700</div></div>
+      <div class="budget-row"><div class="bcat">Sierra essentials: bear canister, ice axe, microspikes, trekking poles</div><div class="bval">$390–500</div></div>
+      <div class="budget-row"><div class="bcat">Clothing system: layers, rain jacket, shoes, socks, hats, gloves</div><div class="bval">$600–1,300</div></div>
+      <div class="budget-row"><div class="bcat">Electronics: Garmin inReach Mini 2, headlamp, power bank</div><div class="bval">$415–460</div></div>
+      <div class="budget-row"><div class="bcat">Navigation + consumables: FarOut app, sunscreen, insect repellent, first aid, fuel</div><div class="bval">$130–250</div></div>
+    </div>
+
+    <div class="section-head">Insurance &amp; miscellaneous</div>
+    <div class="budget-section">
+      <div class="budget-row"><div class="bcat">Travel + emergency evacuation insurance — mandatory. SAR without coverage: $10,000–$50,000 USD.</div><div class="bval">$150–300</div></div>
+      <div class="budget-row"><div class="bcat">Resupply box shipping (UPS from SF to 4 locations + holding fees)</div><div class="bval">$80–160</div></div>
+      <div class="budget-row"><div class="bcat">Miscellaneous (tips, souvenirs, extra food, gear repairs)</div><div class="bval">$80–150</div></div>
+    </div>
+
+    <div class="btotal"><span>TOTAL — gear already owned</span><span>$2,000–3,600</span></div>
+    <div class="btotal"><span>TOTAL — buying all gear new</span><span>$4,200–7,800</span></div>
+    <p style="font-size:11px;color:var(--color-text-secondary);margin-top:10px;line-height:1.6">All prices in USD. Gear purchased in Europe may be cheaper — buy before departure where possible. Do not bring stove fuel from Europe on the plane.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MAPS
+  ═══════════════════════════════════════════ -->
+  <div class="panel" id="maps">
+    <div class="alert alert-info">Interactive Google Earth map of the John Muir Trail — explore the full route, passes, camps and resupply points in 3D terrain.</div>
+
+    <div class="maps-wrap">
+      <div class="maps-label">
+        <span>🗺</span> John Muir Trail — Google Earth 3D Map
+      </div>
+      <div class="maps-iframe-wrap">
+        <iframe
+          src="https://earth.google.com/earth/d/1IPX7KUyCHKw1MxIegVcG1j85vBHH8sRc?usp=sharing"
+          allowfullscreen
+          loading="lazy"
+          title="John Muir Trail — Google Earth Map"
+        ></iframe>
+      </div>
+      <div class="maps-fallback">
+        If the map does not load above, <a href="https://earth.google.com/earth/d/1IPX7KUyCHKw1MxIegVcG1j85vBHH8sRc?usp=sharing" target="_blank" rel="noopener noreferrer">open it directly in Google Earth →</a><br>
+        You can also view the full route in 3D terrain, fly through the Sierra passes, and explore resupply locations interactively in the Google Earth app (available free on desktop and mobile).
+      </div>
+    </div>
+
+    <div class="maps-note">
+      Google Earth KML/KMZ files can be downloaded from this link and imported into offline mapping apps such as Gaia GPS, CalTopo, or AllTrails for use on trail without cell signal.
+    </div>
+
+    <div class="section-head" style="margin-top:16px">Recommended trail apps &amp; maps</div>
+    <div class="perm-card">
+      <div class="perm-title">FarOut (formerly Guthook) — Essential on-trail navigation</div>
+      <div class="perm-desc">The most widely used JMT navigation app. Shows your GPS position relative to the trail even without cell signal. Download the JMT guidebook offline before your trip. Real-time water reports, campsite notes, and condition updates from other hikers are invaluable. Available on iOS and Android — $30–40 for the JMT guide.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">Gaia GPS — Offline topo maps</div>
+      <div class="perm-desc">Full USGS topo maps available offline. Download the Sierra Nevada tiles before departure. Excellent for cross-referencing with FarOut and for off-trail navigation near passes. Free basic version; $40/year for full offline access. Available on iOS and Android.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">Tom Harrison Maps — Waterproof paper maps</div>
+      <div class="perm-desc">The gold standard paper map series for the JMT. "John Muir Trail Map Pack" covers the entire trail on waterproof, tear-resistant paper. Highly recommended as a backup to your phone. Available at REI San Francisco and many outdoor retailers. ~$35 for the complete set.</div>
+    </div>
+    <div class="perm-card">
+      <div class="perm-title">CalTopo — Pre-trip route planning</div>
+      <div class="perm-desc">Best browser-based tool for pre-trip planning. Measure distances, calculate elevation profiles, and export GPX routes to your phone or Garmin inReach. Free at caltopo.com — use it to study each pass before your trip.</div>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+function tog(header) {
+  const body = header.nextElementSibling;
+  const chev = header.querySelector('.chev');
+  body.classList.toggle('open');
+  if (chev) chev.classList.toggle('open');
+}
+</script>
+</body>
+</html>
